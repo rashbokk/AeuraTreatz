@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How It Works — Aeura Treatz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet"/>
+<style>
+:root{--ink:#0D0B08;--ink2:#1C1810;--ink3:#2A2418;--gold:#C9A84C;--gold2:#E8C87A;--gold3:#F5EDD6;--gold-dim:rgba(201,168,76,0.1);--gold-border:rgba(201,168,76,0.25);--muted:rgba(245,237,214,0.5);--radius:6px;--radius-lg:12px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--ink);color:var(--gold3);min-height:100vh}
+nav{position:sticky;top:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:64px;background:rgba(13,11,8,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--gold-border);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--gold2);text-decoration:none}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-cta{padding:9px 22px;background:transparent;border:1px solid var(--gold-border);border-radius:var(--radius);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);cursor:pointer;transition:all .2s;text-decoration:none}
+.nav-cta:hover{background:var(--gold);color:var(--ink)}
+@media(max-width:680px){.nav-links{display:none}}
+
+/* HERO */
+.page-hero{background:var(--ink2);border-bottom:1px solid var(--gold-border);padding:60px 5% 52px;position:relative;overflow:hidden;text-align:center}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 60%);pointer-events:none}
+.hero-script{font-family:'Pinyon Script',cursive;font-size:clamp(3rem,8vw,5rem);color:var(--gold);opacity:.7;line-height:1;margin-bottom:8px}
+.page-hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:300;color:var(--gold3);margin-bottom:10px}
+.page-hero h1 em{font-style:italic;color:var(--gold2)}
+.page-hero p{font-size:14px;font-weight:300;color:var(--muted);max-width:460px;margin:0 auto;line-height:1.7}
+
+.content{max-width:960px;margin:0 auto;padding:72px 5% 80px}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:60px;display:flex;flex-direction:column;gap:0}
+.timeline::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--gold-border) 10%,var(--gold-border) 90%,transparent)}
+.step{position:relative;padding-bottom:56px;animation:fadeUp .5s ease both}
+.step:last-child{padding-bottom:0}
+.step-dot{position:absolute;left:-49px;top:0;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold-border);background:var(--ink2);display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .3s;z-index:1}
+.step:hover .step-dot{background:var(--gold-dim);border-color:var(--gold)}
+.step-num{position:absolute;left:-60px;top:50px;font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:rgba(201,168,76,0.08);line-height:1;z-index:0}
+.step-body{background:var(--ink2);border:1px solid rgba(201,168,76,0.12);border-radius:var(--radius-lg);padding:28px 32px;transition:border-color .3s}
+.step:hover .step-body{border-color:rgba(201,168,76,0.3)}
+.step-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--gold3);margin-bottom:10px}
+.step-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:16px}
+.step-details{display:flex;flex-direction:column;gap:8px}
+.step-detail{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);font-weight:300;line-height:1.5}
+.step-detail::before{content:'✦';color:var(--gold);font-size:10px;flex-shrink:0;margin-top:3px}
+.step-callout{background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.18);border-radius:var(--radius);padding:12px 16px;font-size:13px;color:var(--gold);margin-top:14px;display:flex;align-items:center;gap:8px}
+
+/* POLICIES */
+.policies{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:64px}
+@media(max-width:640px){.policies{grid-template-columns:1fr}}
+.policy-card{background:var(--ink2);border:1px solid rgba(201,168,76,0.12);border-radius:var(--radius-lg);padding:24px}
+.policy-icon{font-size:28px;margin-bottom:12px}
+.policy-title{font-size:14px;font-weight:600;color:var(--gold2);margin-bottom:8px}
+.policy-body{font-size:13px;font-weight:300;color:var(--muted);line-height:1.7}
+
+/* FAQ QUICK */
+.faq-strip{margin-top:64px;display:flex;flex-direction:column;gap:1px}
+.faq-item{background:var(--ink2);border:1px solid rgba(201,168,76,0.1)}
+.faq-q{width:100%;padding:18px 22px;background:none;border:none;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Jost',sans-serif;font-size:14px;font-weight:400;color:var(--gold3);transition:color .2s}
+.faq-q:hover,.faq-q.open{color:var(--gold)}
+.faq-icon{width:20px;height:20px;border:1px solid var(--gold-border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--gold);transition:transform .2s;flex-shrink:0}
+.faq-q.open .faq-icon{transform:rotate(45deg)}
+.faq-a{padding:0 22px;max-height:0;overflow:hidden;font-size:13px;font-weight:300;color:var(--muted);line-height:1.8;transition:max-height .3s ease,padding .3s}
+.faq-a.open{max-height:200px;padding:0 22px 18px}
+
+/* SECTION TITLE */
+.sec-title-wrap{margin-bottom:48px}
+.sec-label{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:300;color:var(--gold3)}
+.sec-title em{font-style:italic;color:var(--gold2)}
+
+/* CTA BAR */
+.cta-bar{background:var(--ink2);border:1px solid var(--gold-border);border-radius:var(--radius-lg);padding:40px;text-align:center;margin-top:64px}
+.cta-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;font-style:italic;color:var(--gold2);margin-bottom:8px}
+.cta-sub{font-size:14px;color:var(--muted);margin-bottom:28px;font-weight:300}
+.cta-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.btn-gold{padding:14px 32px;background:var(--gold);color:var(--ink);border:none;border-radius:var(--radius);font-family:'Jost',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-gold:hover{background:var(--gold2)}
+.btn-ghost{padding:13px 32px;background:transparent;color:var(--gold3);border:1px solid var(--gold-border);border-radius:var(--radius);font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="aeura-treatz.html" class="nav-logo">Aeura Treatz</a>
+  <ul class="nav-links">
+    <li><a href="aeura-treatz.html#about">Our Story</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="howitworks.html" class="active">How it Works</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+  </ul>
+  <a href="orders.html" class="nav-cta">Order Now</a>
+</nav>
+
+<div class="page-hero">
+  <div class="hero-script">From Idea to Slice</div>
+  <h1>How ordering <em>works.</em></h1>
+  <p>Simple, personal, and always delicious. Here's exactly what happens from the moment you reach out to the moment your cake arrives.</p>
+</div>
+
+<div class="content">
+
+  <div class="sec-title-wrap">
+    <div class="sec-label">The Journey</div>
+    <div class="sec-title">Your cake, <em>step by step.</em></div>
+  </div>
+
+  <div class="timeline">
+
+    <div class="step" style="animation-delay:.05s">
+      <div class="step-dot">📝</div>
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <div class="step-label">Step 01 · Order</div>
+        <div class="step-title">Place your order</div>
+        <div class="step-desc">Fill in the order form on our website or simply send a WhatsApp message. Tell us the occasion, flavour, size, date and any special design ideas you have in mind.</div>
+        <div class="step-details">
+          <div class="step-detail">Choose from our menu or describe a completely custom creation</div>
+          <div class="step-detail">Select your cake size — 500g, 1kg, 2kg, or custom tiered</div>
+          <div class="step-detail">Pick your delivery date and preferred delivery or pickup option</div>
+          <div class="step-detail">Add a personalised message, theme, or design reference image</div>
+        </div>
+        <div class="step-callout">💡 Order at least 48 hours in advance — 3–5 days for custom cakes</div>
+      </div>
+    </div>
+
+    <div class="step" style="animation-delay:.15s">
+      <div class="step-dot">💬</div>
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <div class="step-label">Step 02 · Consultation</div>
+        <div class="step-title">We connect & confirm</div>
+        <div class="step-desc">Rashmi will WhatsApp you within 2 hours to confirm availability, discuss design options, finalise the price and answer any questions.</div>
+        <div class="step-details">
+          <div class="step-detail">Final quote shared — no hidden charges</div>
+          <div class="step-detail">Design moodboard or sketch shared for custom orders</div>
+          <div class="step-detail">Allergen and dietary requirements confirmed</div>
+        </div>
+        <div class="step-callout">💰 50% advance payment secures your booking slot</div>
+      </div>
+    </div>
+
+    <div class="step" style="animation-delay:.25s">
+      <div class="step-dot">💳</div>
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <div class="step-label">Step 03 · Payment</div>
+        <div class="step-title">Secure your slot</div>
+        <div class="step-desc">Pay 50% in advance via UPI, bank transfer, or HDFC card (coming soon). Your order is confirmed only after advance payment is received.</div>
+        <div class="step-details">
+          <div class="step-detail">UPI: GPay, PhonePe, Paytm, BHIM — instant confirmation</div>
+          <div class="step-detail">Bank transfer (NEFT/IMPS) — confirmation within 1 hour</div>
+          <div class="step-detail">Balance due on delivery or pickup</div>
+        </div>
+        <div class="step-callout">🔒 Payment receipt shared on WhatsApp immediately</div>
+      </div>
+    </div>
+
+    <div class="step" style="animation-delay:.35s">
+      <div class="step-dot">🎂</div>
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <div class="step-label">Step 04 · Baking</div>
+        <div class="step-title">Baked fresh, just for you</div>
+        <div class="step-desc">Your cake is baked from scratch on your chosen date using the finest premium ingredients. No preservatives, no shortcuts — ever.</div>
+        <div class="step-details">
+          <div class="step-detail">Belgian chocolate, Madagascar vanilla, Himalayan salt — real ingredients</div>
+          <div class="step-detail">100% eggless — every single creation</div>
+          <div class="step-detail">Progress photo shared before boxing — so you can see it first</div>
+          <div class="step-detail">Hygienic baking environment, food-safe packaging</div>
+        </div>
+        <div class="step-callout">📸 You get a "reveal photo" before delivery — a Aeura Treatz tradition</div>
+      </div>
+    </div>
+
+    <div class="step" style="animation-delay:.45s">
+      <div class="step-dot">🚚</div>
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <div class="step-label">Step 05 · Delivery</div>
+        <div class="step-title">Delivered with love</div>
+        <div class="step-desc">Your cake is packaged in our signature Aeura Treatz box and delivered across Bangalore — or available for self-pickup from Koramangala.</div>
+        <div class="step-details">
+          <div class="step-detail">Delivery across all of Bangalore — charges based on distance</div>
+          <div class="step-detail">Self-pickup from Koramangala — always free</div>
+          <div class="step-detail">Live delivery tracking shared via WhatsApp</div>
+          <div class="step-detail">Balance payment collected at delivery</div>
+        </div>
+        <div class="step-callout">🎀 Every order comes with a handwritten note from Rashmi</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- POLICIES -->
+  <div style="margin-top:72px">
+    <div class="sec-label" style="margin-bottom:24px">Good to Know</div>
+    <div class="policies">
+      <div class="policy-card">
+        <div class="policy-icon">⏰</div>
+        <div class="policy-title">Lead Times</div>
+        <div class="policy-body">Standard cakes need 48 hours notice. Custom, tiered and wedding cakes require 3–5 days. Festival slots (Diwali, Christmas, Valentine's Day) fill up fast — book 2 weeks early.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">🔄</div>
+        <div class="policy-title">Cancellations</div>
+        <div class="policy-body">Cancellations 48+ hours before baking date: full refund. Within 24–48 hours: 50% refund. Within 24 hours: no refund as ingredients are already sourced and prepared.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">📦</div>
+        <div class="policy-title">Storage Tips</div>
+        <div class="policy-body">Store in the refrigerator. Remove 30 minutes before serving for best texture. Fresh cream cakes best consumed within 2 days. Fondant cakes within 3 days.</div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">🌱</div>
+        <div class="policy-title">Allergens</div>
+        <div class="policy-body">All cakes are eggless. Gluten-free options available on request. Our kitchen handles nuts — please mention all allergies at order time. Cannot guarantee a completely allergen-free environment.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div style="margin-top:64px">
+    <div class="sec-label" style="margin-bottom:24px">Quick Answers</div>
+    <div class="faq-strip">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What is the minimum order value? <span class="faq-icon">+</span></button><div class="faq-a">There's no strict minimum — even a 500g cake is welcome. For cupcakes, the minimum is 6 pieces.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I change the design after ordering? <span class="faq-icon">+</span></button><div class="faq-a">Minor design changes can be accommodated up to 36 hours before baking. Significant changes after advance payment may affect the price.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do you deliver outside Bangalore? <span class="faq-icon">+</span></button><div class="faq-a">Currently we serve Bangalore only. Delivery charges are calculated based on your pincode and shared at order confirmation.</div></div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Can I pick up the cake myself? <span class="faq-icon">+</span></button><div class="faq-a">Yes! Self-pickup from Koramangala is always free. Pickup slot will be confirmed on WhatsApp after your order is confirmed.</div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-bar">
+    <div class="cta-title">Ready to place your order?</div>
+    <div class="cta-sub">Takes less than 2 minutes. Rashmi will be in touch within 2 hours.</div>
+    <div class="cta-btns">
+      <a href="orders.html" class="btn-gold">✨ Place an Order</a>
+      <a href="https://wa.me/919945545455?text=Hi%20Rashmi!%20I'd%20love%20to%20order%20a%20cake%20🎂" target="_blank" class="btn-ghost">💬 WhatsApp Rashmi</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleFaq(btn){
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+// Animate steps on scroll
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; io.unobserve(e.target); }});
+},{threshold:.1});
+document.querySelectorAll('.step,.policy-card').forEach(el => {
+  el.style.opacity='0'; el.style.transform='translateY(20px)';
+  el.style.transition='opacity .6s ease, transform .6s ease';
+  io.observe(el);
+});
+</script>
+</body>
+</html>

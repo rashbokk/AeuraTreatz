@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Place an Order — Aeura Treatz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#0D0B08;
+  --ink2:#1C1810;
+  --ink3:#2A2418;
+  --gold:#C9A84C;
+  --gold2:#E8C87A;
+  --gold3:#F5EDD6;
+  --gold-dim:rgba(201,168,76,0.1);
+  --gold-border:rgba(201,168,76,0.25);
+  --muted:rgba(245,237,214,0.5);
+  --muted2:rgba(245,237,214,0.3);
+  --radius:6px;
+  --radius-lg:12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--ink);color:var(--gold3);min-height:100vh;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:64px;
+  background:rgba(13,11,8,0.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--gold-border);
+}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;font-style:italic;color:var(--gold2);text-decoration:none}
+.nav-back{
+  display:flex;align-items:center;gap:8px;
+  color:var(--muted);font-size:13px;font-weight:400;text-decoration:none;
+  transition:color .2s;
+}
+.nav-back:hover{color:var(--gold)}
+.nav-back svg{width:16px;height:16px}
+
+/* ── HERO STRIP ── */
+.page-hero{
+  background:var(--ink2);border-bottom:1px solid var(--gold-border);
+  padding:40px 5% 36px;
+  position:relative;overflow:hidden;
+}
+.page-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.07) 0%, transparent 60%);
+  pointer-events:none;
+}
+.page-hero-label{
+  font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;
+}
+.page-hero h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,5vw,3rem);font-weight:300;
+  color:var(--gold3);line-height:1.1;margin-bottom:8px;
+}
+.page-hero h1 em{font-style:italic;color:var(--gold2)}
+.page-hero p{font-size:14px;font-weight:300;color:var(--muted);max-width:480px;line-height:1.7}
+
+/* ── LAYOUT ── */
+.layout{
+  max-width:1060px;margin:0 auto;padding:40px 5% 80px;
+  display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start;
+}
+@media(max-width:800px){.layout{grid-template-columns:1fr}}
+
+/* ── SECTION TITLE ── */
+.sec-ttl{
+  font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
+}
+.sec-ttl::after{content:'';flex:1;max-width:40px;height:1px;background:var(--gold);opacity:.35}
+
+/* ── MENU GRID ── */
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:32px}
+@media(max-width:500px){.menu-grid{grid-template-columns:1fr}}
+
+.menu-card{
+  background:var(--ink2);border:1px solid rgba(201,168,76,0.15);
+  border-radius:var(--radius-lg);padding:20px;cursor:pointer;
+  transition:border-color .25s,transform .2s;position:relative;overflow:hidden;
+}
+.menu-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.menu-card:hover{border-color:rgba(201,168,76,0.4);transform:translateY(-2px)}
+.menu-card:hover::before{transform:scaleX(1)}
+.menu-card.selected{border-color:var(--gold);background:rgba(201,168,76,0.06)}
+.menu-card.selected::before{transform:scaleX(1)}
+.card-check{
+  position:absolute;top:12px;right:12px;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--gold);display:none;
+  align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--ink);
+}
+.menu-card.selected .card-check{display:flex}
+.card-emoji{font-size:36px;margin-bottom:12px;display:block;line-height:1}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;color:var(--gold3);margin-bottom:4px}
+.card-desc{font-size:12px;font-weight:300;color:var(--muted);margin-bottom:12px;line-height:1.5}
+.card-price-tag{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.2);
+  border-radius:20px;padding:4px 12px;
+  font-size:12px;font-weight:600;color:var(--gold);
+}
+
+/* ── CONFIG PANELS ── */
+.config-panels{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.config-panel{
+  background:var(--ink2);border:1px solid rgba(201,168,76,0.2);
+  border-radius:var(--radius-lg);overflow:hidden;
+  display:none;animation:slideIn .25s ease;
+}
+.config-panel.show{display:block}
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.cfg-header{
+  padding:16px 20px;border-bottom:1px solid rgba(201,168,76,0.12);
+  display:flex;align-items:center;gap:12px;
+}
+.cfg-emoji{font-size:24px}
+.cfg-header-text{}
+.cfg-title{font-size:15px;font-weight:500;color:var(--gold2)}
+.cfg-sub{font-size:12px;font-weight:300;color:var(--muted)}
+.cfg-body{padding:0 20px}
+.cfg-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;border-bottom:1px solid rgba(201,168,76,0.08);
+  gap:12px;flex-wrap:wrap;
+}
+.cfg-row:last-child{border-bottom:none}
+.cfg-row-left{}
+.cfg-row-label{font-size:13px;font-weight:500;color:var(--gold3);display:block;margin-bottom:2px}
+.cfg-row-hint{font-size:11px;font-weight:300;color:var(--muted)}
+.cfg-row-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+
+/* Weight selector */
+.weight-select{
+  background:var(--ink3);border:1px solid rgba(201,168,76,0.2);
+  color:var(--gold3);font-family:'Jost',sans-serif;font-size:13px;font-weight:400;
+  padding:8px 14px;border-radius:var(--radius);cursor:pointer;outline:none;
+  transition:border-color .2s;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A84C' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;
+  padding-right:28px;
+}
+.weight-select:focus{border-color:var(--gold)}
+.weight-select option{background:var(--ink3)}
+
+/* Qty stepper */
+.qty-stepper{display:flex;align-items:center;gap:10px}
+.qty-btn{
+  width:32px;height:32px;border-radius:50%;
+  border:1px solid rgba(201,168,76,0.3);background:transparent;
+  color:var(--gold);font-size:18px;line-height:1;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Jost',sans-serif;
+}
+.qty-btn:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.qty-btn:disabled{opacity:.3;cursor:not-allowed}
+.qty-val{
+  font-size:16px;font-weight:500;color:var(--gold3);
+  min-width:32px;text-align:center;
+}
+
+/* Price badge */
+.price-badge{
+  background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.25);
+  border-radius:20px;padding:5px 14px;
+  font-size:13px;font-weight:600;color:var(--gold);white-space:nowrap;
+}
+.min-badge{
+  background:rgba(212,130,10,0.15);border:1px solid rgba(212,130,10,0.3);
+  border-radius:20px;padding:3px 10px;
+  font-size:11px;font-weight:600;color:#E8A020;
+}
+.cupcake-calc{
+  padding:10px 0 2px;
+  font-size:12px;font-weight:300;color:var(--muted);
+}
+.cupcake-calc span{color:var(--gold);font-weight:500}
+
+/* ── DELIVERY SECTION ── */
+.delivery-section{margin-bottom:32px}
+.delivery-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+@media(max-width:500px){.delivery-options{grid-template-columns:1fr}}
+.delivery-opt{
+  background:var(--ink2);border:1px solid rgba(201,168,76,0.15);
+  border-radius:var(--radius-lg);padding:16px;cursor:pointer;
+  transition:border-color .2s;
+}
+.delivery-opt:hover{border-color:rgba(201,168,76,0.4)}
+.delivery-opt.selected{border-color:var(--gold);background:rgba(201,168,76,0.06)}
+.delivery-opt-icon{font-size:24px;margin-bottom:8px}
+.delivery-opt-title{font-size:14px;font-weight:500;color:var(--gold3);margin-bottom:3px}
+.delivery-opt-sub{font-size:12px;font-weight:300;color:var(--muted)}
+.delivery-address{display:none;margin-top:4px}
+.delivery-address.show{display:block}
+
+/* Form inputs */
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px}
+.field label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.field input,.field textarea{
+  background:var(--ink3);border:1px solid rgba(201,168,76,0.18);
+  color:var(--gold3);font-family:'Jost',sans-serif;font-size:14px;font-weight:300;
+  padding:12px 16px;border-radius:var(--radius);outline:none;
+  transition:border-color .2s;width:100%;
+}
+.field input:focus,.field textarea:focus{border-color:var(--gold)}
+.field input::placeholder,.field textarea::placeholder{color:rgba(245,237,214,0.2)}
+.field textarea{min-height:80px;resize:vertical}
+.fields-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:500px){.fields-row{grid-template-columns:1fr}}
+
+/* Date input */
+input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(70%) sepia(40%) saturate(600%) hue-rotate(5deg)}
+
+/* ── ORDER SUMMARY SIDEBAR ── */
+.sidebar{position:sticky;top:80px}
+.summary-box{
+  background:var(--ink2);border:1px solid rgba(201,168,76,0.25);
+  border-radius:var(--radius-lg);overflow:hidden;
+  position:relative;
+}
+.summary-box::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.summary-head{padding:20px 20px 16px;border-bottom:1px solid rgba(201,168,76,0.12)}
+.summary-head-title{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+.summary-head-sub{font-size:12px;font-weight:300;color:var(--muted)}
+.summary-items{padding:12px 20px;min-height:80px}
+.summary-empty{
+  text-align:center;padding:24px 0;
+  font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;
+  color:var(--muted2);
+}
+.summary-line{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:9px 0;border-bottom:1px solid rgba(201,168,76,0.07);
+  gap:8px;
+}
+.summary-line:last-child{border-bottom:none}
+.summary-line-left{}
+.summary-line-name{font-size:13px;font-weight:500;color:var(--gold3);display:block}
+.summary-line-detail{font-size:11px;font-weight:300;color:var(--muted);display:block;margin-top:1px}
+.summary-line-price{font-size:14px;font-weight:600;color:var(--gold);white-space:nowrap}
+.summary-footer{
+  border-top:1px solid rgba(201,168,76,0.15);
+  padding:16px 20px;
+}
+.summary-total-row{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;
+}
+.summary-total-label{font-size:13px;font-weight:500;color:var(--gold3)}
+.summary-total-val{font-size:22px;font-weight:500;color:var(--gold);font-family:'Cormorant Garamond',serif}
+.summary-advance{font-size:12px;font-weight:300;color:var(--muted);margin-bottom:16px}
+.summary-advance span{color:var(--gold);font-weight:500}
+.btn-confirm{
+  width:100%;padding:15px 24px;
+  background:var(--gold);color:var(--ink);border:none;
+  border-radius:var(--radius);font-family:'Jost',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;
+}
+.btn-confirm:hover{background:var(--gold2);transform:translateY(-1px)}
+.btn-confirm:disabled{opacity:.35;cursor:not-allowed;transform:none}
+.btn-whatsapp{
+  width:100%;padding:12px 24px;margin-top:10px;
+  background:#25D366;color:white;border:none;
+  border-radius:var(--radius);font-family:'Jost',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:1px;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  text-decoration:none;
+}
+.btn-whatsapp:hover{background:#20BA5A}
+
+/* ── PAYMENT MODAL ── */
+.modal-bg{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(13,11,8,0.92);backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;padding:20px;
+}
+.modal-bg.open{display:flex}
+.modal{
+  background:var(--ink2);border:1px solid rgba(201,168,76,0.3);
+  border-radius:var(--radius-lg);max-width:420px;width:100%;
+  padding:36px 32px;position:relative;
+  animation:fadeUp .3s ease;max-height:90vh;overflow-y:auto;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.modal-close{
+  position:absolute;top:14px;right:16px;
+  background:none;border:none;color:var(--muted);
+  cursor:pointer;font-size:22px;line-height:1;
+  transition:color .2s;
+}
+.modal-close:hover{color:var(--gold)}
+.modal-title{
+  font-family:'Cormorant Garamond',serif;font-size:1.6rem;
+  font-weight:300;font-style:italic;color:var(--gold2);
+  margin-bottom:4px;
+}
+.modal-sub{font-size:12px;font-weight:300;color:var(--muted);margin-bottom:24px}
+
+/* QR */
+.qr-wrap{
+  background:white;border-radius:var(--radius);padding:20px;
+  display:flex;flex-direction:column;align-items:center;
+  margin-bottom:20px;position:relative;
+}
+.qr-amount-label{
+  font-size:11px;color:#666;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;
+}
+.qr-amount{font-size:24px;font-weight:700;color:#333;margin-bottom:16px}
+.qr-svg{width:160px;height:160px}
+.qr-upi{font-size:12px;color:#666;margin-top:12px;font-family:monospace;text-align:center}
+.qr-note{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:rgba(255,255,255,0.95);border-radius:var(--radius);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:16px;
+}
+.qr-note p{font-size:12px;color:#666;line-height:1.6;margin-bottom:8px}
+.qr-note strong{color:#333;font-size:13px}
+
+/* Pay options */
+.pay-options{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.pay-opt{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 16px;border:1px solid rgba(201,168,76,0.15);
+  border-radius:var(--radius);cursor:pointer;transition:all .2s;
+  background:var(--ink3);
+}
+.pay-opt:hover{border-color:rgba(201,168,76,0.4)}
+.pay-opt.active{border-color:var(--gold);background:rgba(201,168,76,0.08)}
+.pay-opt.disabled{opacity:.5;cursor:default}
+.pay-icon{font-size:22px;width:32px;text-align:center;flex-shrink:0}
+.pay-label{font-size:13px;font-weight:500;color:var(--gold3);display:block}
+.pay-sub{font-size:11px;font-weight:300;color:var(--muted);display:block;margin-top:1px}
+.pay-check{margin-left:auto;color:var(--gold);font-size:16px;display:none}
+.pay-opt.active .pay-check{display:block}
+.coming-pill{
+  margin-left:auto;font-size:10px;font-weight:600;
+  background:rgba(201,168,76,0.1);color:var(--gold);
+  border:1px solid rgba(201,168,76,0.2);border-radius:20px;
+  padding:3px 9px;letter-spacing:.5px;
+}
+.hdfc-callout{
+  background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.18);
+  border-radius:var(--radius);padding:12px 14px;
+  font-size:12px;font-weight:300;color:var(--muted);
+  line-height:1.6;margin-bottom:20px;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.hdfc-callout span{font-size:16px;flex-shrink:0;margin-top:1px}
+.btn-pay{
+  width:100%;padding:14px;background:var(--gold);color:var(--ink);
+  border:none;border-radius:var(--radius);font-family:'Jost',sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;margin-bottom:10px;
+}
+.btn-pay:hover{background:var(--gold2)}
+.btn-cancel{
+  width:100%;padding:11px;background:transparent;
+  border:1px solid rgba(201,168,76,0.2);border-radius:var(--radius);
+  font-family:'Jost',sans-serif;font-size:13px;color:var(--muted);
+  cursor:pointer;transition:all .2s;
+}
+.btn-cancel:hover{border-color:rgba(201,168,76,0.4);color:var(--gold3)}
+
+/* Success */
+.success-state{display:none;text-align:center;padding:20px 0}
+.success-state.show{display:block}
+.success-icon{font-size:64px;margin-bottom:16px}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;font-style:italic;color:var(--gold2);margin-bottom:10px}
+.success-body{font-size:14px;font-weight:300;color:var(--muted);line-height:1.8;margin-bottom:28px}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--ink2);color:var(--gold);border:1px solid rgba(201,168,76,0.3);
+  border-radius:var(--radius);padding:11px 22px;font-size:13px;font-weight:500;
+  z-index:600;opacity:0;transition:all .3s;white-space:nowrap;
+  pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="aeura-treatz.html" class="nav-back">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back to Aeura Treatz
+  </a>
+  <a href="aeura-treatz.html" class="nav-logo">Aeura Treatz</a>
+  <div style="width:130px"></div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-label">Custom Order</div>
+  <h1>Place your <em>order</em></h1>
+  <p>Select your cakes, choose your preferences, and we'll confirm within 2 hours on WhatsApp.</p>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- LEFT COLUMN -->
+  <div>
+
+    <!-- STEP 1: CART ITEMS -->
+    <div class="sec-ttl">Step 1 — Your selected items</div>
+    <div id="cart-from-menu" style="margin-bottom:24px"></div>
+    <div id="cart-empty-notice" style="display:none;background:rgba(201,168,76,0.06);border:1px solid var(--gold-border);border-radius:var(--radius-lg);padding:28px;text-align:center;margin-bottom:24px">
+      <div style="font-size:36px;margin-bottom:12px">🛒</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--gold2);margin-bottom:8px">Your cart is empty</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px">Go back to the menu and add items first.</div>
+      <a href="menu.html" style="display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--gold);color:var(--ink);border-radius:var(--radius);font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .2s">← Browse Menu</a>
+    </div>
+
+    <!-- STEP 2: CONFIGURE -->
+    <div id="config-area" style="display:none">
+      <div class="sec-ttl">Step 2 — Configure your selection</div>
+      <div class="config-panels" id="config-panels">
+
+        <!-- CHOC CAKE -->
+        <div class="config-panel" id="cfg-choc-cake">
+          <div class="cfg-header">
+            <span class="cfg-emoji">🍫</span>
+            <div class="cfg-header-text">
+              <div class="cfg-title">Chocolate Cake</div>
+              <div class="cfg-sub">Belgian dark chocolate · eggless · fresh ganache</div>
+            </div>
+          </div>
+          <div class="cfg-body">
+            <div class="cfg-row">
+              <div class="cfg-row-left">
+                <span class="cfg-row-label">Weight</span>
+                <span class="cfg-row-hint">Serves 4–24 people</span>
+              </div>
+              <div class="cfg-row-right">
+                <select class="weight-select" id="choc-cake-weight" onchange="updateCakePrice('choc-cake')">
+                  <option value="1200">500g — ₹1,200 (serves 4–6)</option>
+                  <option value="1800" selected>1 kg — ₹1,800 (serves 8–12)</option>
+                  <option value="3200">2 kg — ₹3,200 (serves 18–24)</option>
+                </select>
+              </div>
+            </div>
+            <div class="cfg-row">
+              <div class="cfg-row-left">
+                <span class="cfg-row-label">Quantity</span>
+                <span class="cfg-row-hint">Number of cakes</span>
+              </div>
+              <div class="cfg-row-right">
+                <div class="qty-stepper">
+                  <button class="qty-btn" onclick="changeQty('choc-cake',-1)">−</button>
+                  <span class="qty-val" id="choc-cake-qty">1</span>
+                  <button class="qty-btn" onclick="changeQty('choc-cake',1)">+</button>
+                </div>
+                <span class="price-badge" id="choc-cake-price">₹1,800</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VAN CAKE -->
+        <div class="config-panel" id="cfg-van-cake">
+          <div class="cfg-header">
+            <span class="cfg-emoji">🍦</span>
+            <div class="cfg-header-text">
+              <div class="cfg-title">Vanilla Cake</div>
+              <div class="cfg-sub">Madagascar vanilla bean · eggless · whipped cream</div>
+            </div>
+          </div>
+          <div class="cfg-body">
+            <div class="cfg-row">
+              <div class="cfg-row-left">
+                <span class="cfg-row-label">Weight</span>
+                <span class="cfg-row-hint">Serves 4–24 people</span>
+              </div>
+              <div class="cfg-row-right">
+                <select class="weight-select" id="van-cake-weight" onchange="updateCakePrice('van-cake')">
+                  <option value="1000">500g — ₹1,000 (serves 4–6)</option>
+                  <option value="1500" selected>1 kg — ₹1,500 (serves 8–12)</option>
+                  <option value="2800">2 kg — ₹2,800 (serves 18–24)</option>
+                </select>
+              </div>
+            </div>
+            <div class="cfg-row">
+              <div class="cfg-row-left">
+                <span class="cfg-row-label">Quantity</span>
+                <span class="cfg-row-hint">Number of cakes</span>
+              </div>
+              <div class="cfg-row-right">
+                <div class="qty-stepper">
+                  <button class="qty-btn" onclick="changeQty('van-cake',-1)">−</button>
+                  <span class="qty-val" id="van-cake-qty">1</span>
+                  <button class="qty-btn" onclick="changeQty('van-cake',1)">+</button>
+                </div>
+                <span class="price-badge" id="van-cake-price">₹1,500</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VAN CUPCAKES -->
+        <div class="config-panel" id="cfg-van-cup">
+          <div class="cfg-header">
+            <span class="cfg-emoji">🧁</span>
+            <div class="cfg-header-text">
+              <div class="cfg-title">Vanilla Cupcakes</div>
+              <div class="cfg-sub">₹120 per piece · minimum order 6 pieces</div>
+            </div>
+          </div>
+          <div class="cfg-body">
+            <div class="cfg-row">
+              <div class="cfg-row-left">
+                <span class="cfg-row-label">Pieces</span>
+                <span class="cfg-row-hint"><span class="min-badge">Min 6 pieces</span></span>
+              </div>
+              <div class="cfg-row-right">
+                <div class="qty-stepper">
+                  <button class="qty-btn" onclick="changeQty('van-cup',-1)" id="van-cup-minus">−</button>
+                  <span class="qty-val" id="van-cup-qty">6</span>
+                  <button class="qty-btn" onclick="changeQty('van-cup',1)">+</button>
+                </div>
+                <span class="price-badge" id="van-cup-price">₹720</span>
+              </div>
+            </div>
+            <div class="cupcake-calc">
+              ₹120 × <span id="van-cup-count">6</span> pieces = <span id="van-cup-total">₹720</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHOC CUPCAKES -->
+        <div class="config-panel" id="cfg-choc-cup">
+          <div class="cfg-header">
+            <span class="cfg-emoji">🍮</span>
+            <div class="cfg-header-text">
+              <div class="cfg-title">Chocolate Cupcakes</div>
+              <div class="cfg-sub">₹130 per piece · minimum order 6 pieces</div>
+            </div>
+          </div>
+          <div class="cfg-body">
+            <div class="cfg-row">
+              <div class="cfg-row-left">
+                <span class="cfg-row-label">Pieces</span>
+                <span class="cfg-row-hint"><span class="min-badge">Min 6 pieces</span></span>
+              </div>
+              <div class="cfg-row-right">
+                <div class="qty-stepper">
+                  <button class="qty-btn" onclick="changeQty('choc-cup',-1)" id="choc-cup-minus">−</button>
+                  <span class="qty-val" id="choc-cup-qty">6</span>
+                  <button class="qty-btn" onclick="changeQty('choc-cup',1)">+</button>
+                </div>
+                <span class="price-badge" id="choc-cup-price">₹780</span>
+              </div>
+            </div>
+            <div class="cupcake-calc">
+              ₹130 × <span id="choc-cup-count">6</span> pieces = <span id="choc-cup-total">₹780</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROSE CAKE -->
+        <div class="config-panel" id="cfg-rose-cake">
+          <div class="cfg-header">
+            <span class="cfg-emoji">🌹</span>
+            <div class="cfg-header-text">
+              <div class="cfg-title">Rose & Pistachio Gateau</div>
+              <div class="cfg-sub">Rose water · pistachio cream · gold leaf · eggless</div>
+            </div>
+          </div>
+          <div class="cfg-body">
+            <div class="cfg-row">
+              <div class="cfg-row-left">
+                <span class="cfg-row-label">Weight</span>
+                <span class="cfg-row-hint">Serves 4–24 people</span>
+              </div>
+              <div class="cfg-row-right">
+                <select class="weight-select" id="rose-cake-weight" onchange="updateCakePrice('rose-cake')">
+                  <option value="1400">500g — ₹1,400 (serves 4–6)</option>
+                  <option value="2200" selected>1 kg — ₹2,200 (serves 8–12)</option>
+                  <option value="4000">2 kg — ₹4,000 (serves 18–24)</option>
+                </select>
+              </div>
+            </div>
+            <div class="cfg-row">
+              <div class="cfg-row-left">
+                <span class="cfg-row-label">Quantity</span>
+                <span class="cfg-row-hint">Number of cakes</span>
+              </div>
+              <div class="cfg-row-right">
+                <div class="qty-stepper">
+                  <button class="qty-btn" onclick="changeQty('rose-cake',-1)">−</button>
+                  <span class="qty-val" id="rose-cake-qty">1</span>
+                  <button class="qty-btn" onclick="changeQty('rose-cake',1)">+</button>
+                </div>
+                <span class="price-badge" id="rose-cake-price">₹2,200</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CUSTOM -->
+        <div class="config-panel" id="cfg-custom">
+          <div class="cfg-header">
+            <span class="cfg-emoji">✨</span>
+            <div class="cfg-header-text">
+              <div class="cfg-title">Custom Creation</div>
+              <div class="cfg-sub">Describe your vision below — Rashmi will quote you</div>
+            </div>
+          </div>
+          <div class="cfg-body">
+            <div class="cfg-row">
+              <div style="width:100%">
+                <span class="cfg-row-label" style="display:block;margin-bottom:8px">Describe your cake</span>
+                <textarea id="custom-desc" style="width:100%;background:var(--ink3);border:1px solid rgba(201,168,76,0.18);color:var(--gold3);font-family:'Jost',sans-serif;font-size:13px;padding:12px;border-radius:var(--radius);min-height:80px;resize:vertical;outline:none" placeholder="Theme, flavour, size, occasion, design ideas…"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- STEP 3: DETAILS -->
+    <div id="details-section" style="display:none">
+      <div class="sec-ttl">Step 3 — Your details</div>
+
+      <div class="fields-row">
+        <div class="field">
+          <label>Your Name *</label>
+          <input type="text" id="f-name" placeholder="e.g. Priya Sharma"/>
+        </div>
+        <div class="field">
+          <label>WhatsApp Number *</label>
+          <input type="tel" id="f-phone" placeholder="+91 98765 43210"/>
+        </div>
+      </div>
+
+      <div class="fields-row">
+        <div class="field">
+          <label>Occasion *</label>
+          <select id="f-occasion" style="background:var(--ink3);border:1px solid rgba(201,168,76,0.18);color:var(--gold3);font-family:'Jost',sans-serif;font-size:14px;padding:12px 16px;border-radius:var(--radius);outline:none;width:100%;appearance:none;cursor:pointer">
+            <option value="">Select occasion…</option>
+            <option>Birthday</option>
+            <option>Anniversary</option>
+            <option>Wedding</option>
+            <option>Baby Shower</option>
+            <option>Corporate Event</option>
+            <option>Festival</option>
+            <option>Just Because</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Delivery Date *</label>
+          <input type="date" id="f-date"/>
+        </div>
+      </div>
+
+      <div class="delivery-section">
+        <div class="sec-ttl" style="margin-bottom:12px">Delivery preference</div>
+        <div class="delivery-options">
+          <div class="delivery-opt selected" id="opt-delivery" onclick="selectDelivery('delivery')">
+            <div class="delivery-opt-icon">🚚</div>
+            <div class="delivery-opt-title">Home Delivery</div>
+            <div class="delivery-opt-sub">Bangalore · charges apply</div>
+          </div>
+          <div class="delivery-opt" id="opt-pickup" onclick="selectDelivery('pickup')">
+            <div class="delivery-opt-icon">🛍️</div>
+            <div class="delivery-opt-title">Self Pickup</div>
+            <div class="delivery-opt-sub">Koramangala · free</div>
+          </div>
+        </div>
+        <div class="delivery-address show" id="delivery-addr">
+          <div class="field">
+            <label>Delivery Address</label>
+            <input type="text" id="f-address" placeholder="Full address, landmark, Bangalore pincode"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Message on Cake</label>
+        <input type="text" id="f-message" placeholder='e.g. "Happy Birthday Amma! 🎂"'/>
+      </div>
+      <div class="field">
+        <label>Special Requests</label>
+        <textarea id="f-notes" placeholder="Allergens, design references, colours, add-ons, dietary notes…"></textarea>
+      </div>
+    </div>
+
+  </div><!-- /left col -->
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="sidebar">
+    <div class="summary-box">
+      <div class="summary-head">
+        <div class="summary-head-title">Order Summary</div>
+        <div class="summary-head-sub">Your selections appear here</div>
+      </div>
+      <div class="summary-items" id="summary-items">
+        <div class="summary-empty">Select cakes to begin ✦</div>
+      </div>
+      <div class="summary-footer" id="summary-footer" style="display:none">
+        <div class="summary-total-row">
+          <span class="summary-total-label">Total</span>
+          <span class="summary-total-val" id="grand-total">₹0</span>
+        </div>
+        <div class="summary-advance">50% advance: <span id="advance-amount">₹0</span></div>
+        <button class="btn-confirm" id="confirm-btn" onclick="openPayment()">Confirm &amp; Pay →</button>
+        <a id="wa-btn" href="#" target="_blank" class="btn-whatsapp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order via WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /layout -->
+
+<!-- PAYMENT MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <button class="modal-close" onclick="closePayment()">✕</button>
+
+    <div id="pay-form">
+      <div class="modal-title">Complete payment</div>
+      <div class="modal-sub">Scan the QR or choose a payment method below</div>
+
+      <div class="qr-wrap">
+        <div class="qr-amount-label">50% Advance</div>
+        <div class="qr-amount" id="modal-amount">₹0</div>
+        <svg class="qr-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="52" height="52" rx="4" fill="none" stroke="#333" stroke-width="5"/>
+          <rect x="20" y="20" width="32" height="32" rx="2" fill="#333"/>
+          <rect x="98" y="10" width="52" height="52" rx="4" fill="none" stroke="#333" stroke-width="5"/>
+          <rect x="108" y="20" width="32" height="32" rx="2" fill="#333"/>
+          <rect x="10" y="98" width="52" height="52" rx="4" fill="none" stroke="#333" stroke-width="5"/>
+          <rect x="20" y="108" width="32" height="32" rx="2" fill="#333"/>
+          <rect x="72" y="72" width="10" height="10" fill="#333"/>
+          <rect x="88" y="72" width="10" height="10" fill="#333"/>
+          <rect x="104" y="72" width="10" height="10" fill="#333"/>
+          <rect x="120" y="72" width="10" height="10" fill="#333"/>
+          <rect x="136" y="72" width="10" height="10" fill="#333"/>
+          <rect x="72" y="88" width="10" height="10" fill="#333"/>
+          <rect x="104" y="88" width="10" height="10" fill="#333"/>
+          <rect x="136" y="88" width="10" height="10" fill="#333"/>
+          <rect x="72" y="104" width="10" height="10" fill="#333"/>
+          <rect x="88" y="104" width="10" height="10" fill="#333"/>
+          <rect x="120" y="104" width="10" height="10" fill="#333"/>
+          <rect x="72" y="120" width="10" height="10" fill="#333"/>
+          <rect x="104" y="120" width="10" height="10" fill="#333"/>
+          <rect x="136" y="120" width="10" height="10" fill="#333"/>
+          <rect x="72" y="136" width="10" height="10" fill="#333"/>
+          <rect x="88" y="136" width="10" height="10" fill="#333"/>
+          <rect x="120" y="136" width="10" height="10" fill="#333"/>
+        </svg>
+        <div class="qr-upi">UPI ID: rashmi@upi · Link your HDFC UPI ID to activate</div>
+        <div class="qr-note">
+          <strong>QR Code Placeholder</strong>
+          <p>Replace the UPI ID above with your HDFC UPI ID (e.g. 9945545455@hdfcbank) and this QR will auto-activate.</p>
+        </div>
+      </div>
+
+      <div class="pay-options">
+        <div class="pay-opt active" onclick="selectPay(this)">
+          <span class="pay-icon">📱</span>
+          <div>
+            <span class="pay-label">UPI / QR Code</span>
+            <span class="pay-sub">GPay, PhonePe, Paytm, BHIM</span>
+          </div>
+          <span class="pay-check">✓</span>
+        </div>
+        <div class="pay-opt" onclick="selectPay(this)">
+          <span class="pay-icon">🏦</span>
+          <div>
+            <span class="pay-label">Bank Transfer (NEFT/IMPS)</span>
+            <span class="pay-sub">Account details sent on WhatsApp</span>
+          </div>
+          <span class="pay-check">✓</span>
+        </div>
+        <div class="pay-opt disabled">
+          <span class="pay-icon">💳</span>
+          <div>
+            <span class="pay-label">HDFC Card / Net Banking</span>
+            <span class="pay-sub">Debit, Credit, EMI — ready to link</span>
+          </div>
+          <span class="coming-pill">Coming soon</span>
+        </div>
+      </div>
+
+      <div class="hdfc-callout">
+        <span>🏦</span>
+        <span>To activate HDFC card & net banking payments, share your <strong>HDFC SmartHub Vyapar Merchant ID</strong> or connect a payment gateway (Razorpay/Cashfree). I can wire it in within minutes.</span>
+      </div>
+
+      <button class="btn-pay" onclick="confirmPay()">Pay Advance Now</button>
+      <button class="btn-cancel" onclick="closePayment()">Cancel</button>
+    </div>
+
+    <div class="success-state" id="pay-success">
+      <div class="success-icon">🎂</div>
+      <div class="success-title">Order Confirmed!</div>
+      <p class="success-body">Thank you! Rashmi will WhatsApp you within 2 hours to confirm your slot and share final details.<br/><br/>Can't wait to bake something beautiful for you. ✦</p>
+      <a href="aeura-treatz.html" style="display:inline-block;padding:14px 32px;background:var(--gold);color:var(--ink);border-radius:var(--radius);font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all .2s" onmouseover="this.style.background='#E8C87A'" onmouseout="this.style.background='#C9A84C'">Back to Aeura Treatz</a>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── READ CART FROM localStorage ──
+let cart = JSON.parse(localStorage.getItem('aeura-treatz-cart') || '[]');
+
+function loadCartIntoOrders(){
+  const wrap = document.getElementById('cart-from-menu');
+  const emptyNotice = document.getElementById('cart-empty-notice');
+  const detailsSec = document.getElementById('details-section');
+
+  if(cart.length === 0){
+    emptyNotice.style.display = 'block';
+    detailsSec.style.display = 'none';
+    document.getElementById('summary-footer').style.display = 'none';
+    document.getElementById('summary-items').innerHTML = '<div style="text-align:center;padding:24px;font-size:13px;color:rgba(245,237,214,0.3);font-style:italic">No items yet</div>';
+    return;
+  }
+
+  emptyNotice.style.display = 'none';
+  detailsSec.style.display = 'block';
+
+  let html = '';
+  let grand = 0;
+  cart.forEach((item, i) => {
+    const itemTotal = item.price * item.qty;
+    grand += itemTotal;
+    html += `<div style="background:var(--ink2);border:1px solid rgba(201,168,76,0.18);border-radius:var(--radius-lg);padding:16px 20px;display:flex;align-items:center;gap:16px;margin-bottom:10px">
+      <span style="font-size:32px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--ink3);border-radius:8px;flex-shrink:0">${item.emoji}</span>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:600;color:var(--gold3);margin-bottom:2px">${item.name}</div>
+        <div style="font-size:12px;color:var(--muted)">${item.detail}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex-shrink:0">
+        <button onclick="updateQty(${i},-1)" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(201,168,76,0.3);background:transparent;color:var(--gold);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center">−</button>
+        <span style="font-size:13px;font-weight:600;color:var(--gold3);min-width:20px;text-align:center">${item.qty}</span>
+        <button onclick="updateQty(${i},1)" style="width:26px;height:26px;border-radius:50%;border:1px solid rgba(201,168,76,0.3);background:transparent;color:var(--gold);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center">+</button>
+      </div>
+      <div style="font-size:15px;font-weight:600;color:var(--gold);min-width:64px;text-align:right">₹${itemTotal.toLocaleString('en-IN')}</div>
+      <button onclick="removeItem(${i})" style="background:none;border:none;color:rgba(245,237,214,0.2);cursor:pointer;font-size:16px;padding:4px;transition:color .2s" onmouseover="this.style.color='#C0392B'" onmouseout="this.style.color='rgba(245,237,214,0.2)'">✕</button>
+    </div>`;
+  });
+
+  // Add back to menu link
+  html += `<a href="menu.html" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--gold);text-decoration:none;font-weight:600;letter-spacing:.5px;margin-top:4px;opacity:.8">← Add more items from menu</a>`;
+  wrap.innerHTML = html;
+
+  // Update summary sidebar
+  let sumHtml = '';
+  cart.forEach(item => {
+    const t = item.price * item.qty;
+    sumHtml += `<div class="summary-line"><div class="summary-line-left"><span class="summary-line-name">${item.emoji} ${item.name}</span><span class="summary-line-detail">${item.detail}</span></div><span class="summary-line-price">₹${t.toLocaleString('en-IN')}</span></div>`;
+  });
+  document.getElementById('summary-items').innerHTML = sumHtml;
+  document.getElementById('summary-footer').style.display = 'block';
+  document.getElementById('grand-total').textContent = '₹'+grand.toLocaleString('en-IN');
+  const adv = Math.round(grand/2);
+  document.getElementById('advance-amount').textContent = '₹'+adv.toLocaleString('en-IN');
+  document.getElementById('modal-amount').textContent = '₹'+adv.toLocaleString('en-IN')+' (50% advance)';
+  updateWALink();
+}
+
+function updateQty(idx, d){
+  const min = cart[idx].minQty || 1;
+  cart[idx].qty = Math.max(min, cart[idx].qty + d);
+  localStorage.setItem('aeura-treatz-cart', JSON.stringify(cart));
+  loadCartIntoOrders();
+}
+function removeItem(idx){
+  cart.splice(idx,1);
+  localStorage.setItem('aeura-treatz-cart', JSON.stringify(cart));
+  loadCartIntoOrders();
+}
+let deliveryMode = 'delivery';
+
+// Set min date
+const di = document.getElementById("f-date");
+const d2 = new Date(); d2.setDate(d2.getDate()+2);
+di.min = d2.toISOString().split("T")[0];
+
+// Init on page load
+loadCartIntoOrders();
+
+// ── QTY ──
+
+
+// ── PRICE UPDATE FOR CAKE WEIGHT ──
+
+
+// ── SUMMARY ──
+
+
+// ── WHATSAPP LINK ──
+function updateWALink(){
+  const name = document.getElementById('f-name').value || 'a customer';
+  const phone = document.getElementById('f-phone').value || '';
+  const occasion = document.getElementById('f-occasion').value || 'an occasion';
+  const date = document.getElementById('f-date').value || 'TBD';
+  const msg = document.getElementById('f-message').value || '';
+  const notes = document.getElementById('f-notes').value || '';
+
+  let items_text = '';
+  for(const [id, item] of Object.entries(items)){
+    if(!item.active) continue;
+    if(item.type === 'cup') items_text += `• ${item.name}: ${item.qty} pcs\n`;
+    else if(item.type === 'custom') items_text += `• Custom Cake: ${document.getElementById('custom-desc')?.value || 'see notes'}\n`;
+    else {
+      const sel = document.getElementById(id+'-weight');
+      const wt = sel ? sel.options[sel.selectedIndex].text.split(' — ')[0] : '';
+      items_text += `• ${item.name} (${wt}) × ${item.qty}\n`;
+    }
+  }
+
+  const text = encodeURIComponent(
+    `🎂 *New Aeura Treatz Order*\n\n`+
+    `*Name:* ${name}\n*Phone:* ${phone}\n`+
+    `*Occasion:* ${occasion}\n*Delivery Date:* ${date}\n`+
+    `*Delivery:* ${deliveryMode === 'delivery' ? document.getElementById('f-address').value || 'Home delivery' : 'Self pickup – Koramangala'}\n\n`+
+    `*Items:*\n${items_text}\n`+
+    (msg ? `*Cake Message:* "${msg}"\n` : '')+
+    (notes ? `*Notes:* ${notes}\n` : '')+
+    `\nPlease confirm availability and quote! 🙏`
+  );
+  document.getElementById('wa-btn').href = `https://wa.me/919945545455?text=${text}`;
+}
+
+// ── DELIVERY ──
+function selectDelivery(mode){
+  deliveryMode = mode;
+  document.getElementById('opt-delivery').classList.toggle('selected', mode === 'delivery');
+  document.getElementById('opt-pickup').classList.toggle('selected', mode === 'pickup');
+  document.getElementById('delivery-addr').classList.toggle('show', mode === 'delivery');
+}
+
+// ── PAYMENT MODAL ──
+function openPayment(){
+  const name = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const occasion = document.getElementById('f-occasion').value;
+  const date = document.getElementById('f-date').value;
+  if(!name || !phone || !occasion || !date){
+    showToast('Please fill in your name, phone, occasion and date ✦');
+    document.getElementById('details-section').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closePayment(){
+  document.getElementById('modal-bg').classList.remove('open');
+  document.getElementById('pay-form').style.display = 'block';
+  document.getElementById('pay-success').classList.remove('show');
+}
+function selectPay(el){
+  if(el.classList.contains('disabled')) return;
+  document.querySelectorAll('.pay-opt:not(.disabled)').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+function confirmPay(){
+  document.getElementById('pay-form').style.display = 'none';
+  document.getElementById('pay-success').classList.add('show');
+}
+
+// ── TOAST ──
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// Live WhatsApp link update
+['f-name','f-phone','f-occasion','f-date','f-address','f-message','f-notes'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('input', updateWALink);
+});
+</script>
+</body>
+</html>
